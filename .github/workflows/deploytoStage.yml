@@ -1,0 +1,45 @@
+name: Manually triggered workflow
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Person to greet'
+        required: true
+        default: 'Mona the Octocat'
+      home:
+        description: 'location'
+        required: false
+        default: 'The Octoverse'
+
+jobs:
+  say_hello:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo "Hello $!"
+        echo "- in $!"
+        
+    - name: Checkout
+      uses: actions/checkout@v3    
+    - name: Download JAR from Artifactory
+      run: |
+        ARTIFACTORY_FILE_URL="https://deloite.jfrog.io/artifactory/demo-libs-snapshot-local/com/mycompany/githubactions-demo/1.0.0-SNAPSHOT/githubactions-demo-1.0.0-20230915.072606-6-mule-application.jar"
+        ARTIFACTORY_PASSWORD="cmVmdGtuOjAxOjE3MjYzMDEwMTI6cmZzZm54Z1FwZlZqN3Y5U04ySlJVMGViSThr"
+        JAR_NAME="githubactions-demo-1.0.0-20230913.030105-2-mule-application.jar"
+        # Define a destination directory for the downloaded file
+        DESTINATION_DIR="downloads"
+        mkdir -p "$DESTINATION_DIR"
+        curl -u "${ARTIFACTORY_USERNAME}:${ARTIFACTORY_PASSWORD}" -o "$DESTINATION_DIR/application.jar" "$ARTIFACTORY_FILE_URL"
+
+        # Check if the download was successful
+        if [ $? -eq 0 ]; then
+          echo "Downloaded application.jar from Artifactory."
+        else
+          echo "Failed to download application.jar from Artifactory."
+          exit 1  # Exit the workflow with an error code
+        fi
+    - name: Deploy
+      run: |
+        cp downloads/application.jar ./target/application-new.jar
+        mvn deploy -DmuleDeploy -Dmule.artifact=https://deloite.jfrog.io/artifactory/demo-libs-snapshot-local/com/mycompany/githubactions-demo/1.0.0-SNAPSHOT/githubactions-demo-1.0.0-20230915.072606-6-mule-application.jar -s ./settings.xml
+       

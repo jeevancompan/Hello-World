@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 http://maven.apache.org/xsd/settings-1.2.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.2.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <mirrors>
+  <mirror>
+      <id>mirror1</id>
+      <mirrorOf>central</mirrorOf>
+      <name>mirror1</name>
+      <url>https://repo.maven.apache.org/maven2/</url>
+</mirror>
+    </mirrors>
+  <servers>
+    <server>
+      <username>yekahiv673@fandsend.com</username>
+      <password>cmVmdGtuOjAxOjE3MjY5MDg3NzU6TU1wcFpmUlFSMmJ2ZGIwSzZ3ZUdkUVVXSzdE</password>
+      <id>central</id>
+    </server>
+    <server>
+      <username>yekahiv673@fandsend.com</username>
+      <password>cmVmdGtuOjAxOjE3MjY5MDg3NzU6TU1wcFpmUlFSMmJ2ZGIwSzZ3ZUdkUVVXSzdE</password>
+      <id>snapshots</id>
+    </server>
+  </servers>
+  <profiles>
+    <profile>
+      <repositories>
+        <repository>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <id>central</id>
+          <name>demo-libs-snapshot</name>
+          <url>https://srujana.jfrog.io/artifactory/demo-libs-snapshot</url>
+        </repository>
+        <repository>
+          <snapshots />
+          <id>snapshots</id>
+          <name>demo-libs-snapshot</name>
+          <url>https://srujana.jfrog.io/artifactory/demo-libs-snapshot</url>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <id>central</id>
+          <name>demo-libs-snapshot</name>
+          <url>https://srujana.jfrog.io/artifactory/demo-libs-snapshot</url>
+        </pluginRepository>
+        <pluginRepository>
+          <snapshots />
+          <id>snapshots</id>
+          <name>demo-libs-snapshot</name>
+          <url>https://srujana.jfrog.io/artifactory/demo-libs-snapshot</url>
+        </pluginRepository>
+      </pluginRepositories>
+      <id>artifactory</id>
+    </profile>
+  </profiles>
+  <activeProfiles>
+    <activeProfile>artifactory</activeProfile>
+  </activeProfiles>
+</settings>
